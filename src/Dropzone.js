@@ -28,8 +28,11 @@ function Dropzone({ open }) {
                 <button type="button" onClick={open} className="btn">
                     Click to select files
                 </button>
+                {/* <form>
+                    <input type="file" />
+                </form> */}
                 <ul>{files}</ul>
-            </div>  
+            </div>
         </div>
     );
 }

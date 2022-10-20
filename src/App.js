@@ -1,5 +1,7 @@
 import React from 'react'
-import { useEffect, useState } from 'react'
+import { useCallback, useState } from 'react'
+import cuid from "cuid";
+import ImageGrid from "./ImageGrid";
 // import './box.css';
 // import Dropzone from 'react-dropzone'
 import Dropzone from "./Dropzone";
@@ -35,6 +37,20 @@ import Dropzone from "./Dropzone";
 // }
 
 function App() {
+  const [images, setImages] = useState([]);
+  const onDrop = useCallback((acceptedFiles) => {
+    acceptedFiles.map((file) => {
+      const reader = new FileReader();
+      reader.onload = function (e) {
+        setImages((prevState) => [
+          ...prevState,
+          { id: cuid(), src: e.target.result },
+        ]);
+      };
+      reader.readAsDataURL(file);
+      return file;
+    });
+  }, []);
   return (
     // <div className="box">
     //   <Dropzone onDrop={acceptedFiles => console.log(acceptedFiles)}>
@@ -49,7 +65,8 @@ function App() {
     //   </Dropzone>
     // </div>
     <div>
-      <Dropzone />
+      <Dropzone onDrop={onDrop} />
+      <ImageGrid images={images} />
     </div>
   );
 }
