@@ -65,7 +65,7 @@ function App() {
     //   </Dropzone>
     // </div>
     <div>
-      <Dropzone onDrop={onDrop} />
+      <Dropzone onDrop={onDrop}/>
       <ImageGrid images={images} />
     </div>
   );

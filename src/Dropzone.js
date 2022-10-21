@@ -3,12 +3,14 @@
 import React from "react";
 import { useDropzone } from "react-dropzone";
 
-function Dropzone({ open }) {
-    const { getRootProps, getInputProps, isDragActive, acceptedFiles } = useDropzone({});
+function Dropzone({ onDrop, open }) {
+    const { getRootProps, getInputProps, isDragActive, acceptedFiles } = useDropzone({
+        onDrop,
+    });
 
     const files = acceptedFiles.map((file) => (
-        <li key={file.path}>
-            {file.path} - {file.size} bytes
+        <li key={file.id}>
+            {file.path}
         </li>
     ));
 
@@ -31,8 +33,10 @@ function Dropzone({ open }) {
                 {/* <form>
                     <input type="file" />
                 </form> */}
-                <ul>{files}</ul>
             </div>
+            <aside>
+                <ul>{files}</ul>
+            </aside>
         </div>
     );
 }
